@@ -72,14 +72,8 @@ async def main(url, token):
             await down(session, json.dumps(response_data))
 
 
-def token_handling(token):
-    parsed_token = urlparse(token)
-    token = parse_qs(parsed_token.query)["token"][0]
-    return urllib.parse.unquote(token)
 
-def main(urls):
-    print(urls)
-    url, token = urls.split("login?token=")
+def main(url):
+    url, token = url.split("login?token=")
     create_CTF_folder(url)
-    token = token_handling(token)
     asyncio.run(main(url, token))
