@@ -1,7 +1,3 @@
-
-
-# bengsky/tools/gopherurl.py
-
 import urllib.parse
 import requests
 
@@ -24,3 +20,17 @@ def convert_to_gopher(prepared: requests.PreparedRequest) -> str:
 
     gopher_payload = urllib.parse.quote(payload)
     return f"gopher://{host}/_{gopher_payload}"
+
+
+def usage():
+    print("""import requests
+req = requests.Request(
+    method='POST',
+    url='http://example.com/login',
+    headers={
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data='username=admin&password=admin'
+)
+prepared = req.prepare()
+gopher_url = convert_to_gopher(prepared)""")
