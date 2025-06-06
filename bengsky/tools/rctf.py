@@ -77,8 +77,8 @@ def token_handling(token):
     token = parse_qs(parsed_token.query)["token"][0]
     return urllib.parse.unquote(token)
 
-def main(url):
-    url, token = url.split("login?token=")
+def main(urls):
+    url, token = urls.split("login?token=")
     create_CTF_folder(url)
     token = token_handling(token)
     asyncio.run(main(url, token))
