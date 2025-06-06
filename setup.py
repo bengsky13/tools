@@ -12,5 +12,10 @@ setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+        'console_scripts': [
+            'bengsky = bengsky.__main__:main',
+        ],
+    },
     python_requires='>=3.10',
 )
