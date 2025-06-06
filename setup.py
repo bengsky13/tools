@@ -17,5 +17,11 @@ setup(
             'bengsky = bengsky.__main__:main',
         ],
     },
+    install_requires=[
+        "requests",
+        "aiohttp",
+        "bs4"
+        # Add other dependencies here
+    ],
     python_requires='>=3.10',
 )
