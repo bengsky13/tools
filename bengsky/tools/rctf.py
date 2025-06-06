@@ -78,6 +78,7 @@ def token_handling(token):
     return urllib.parse.unquote(token)
 
 def main(urls):
+    print(urls)
     url, token = urls.split("login?token=")
     create_CTF_folder(url)
     token = token_handling(token)
