@@ -5,6 +5,7 @@ from urllib.parse import urlparse, parse_qs
 import json
 import re
 import os
+import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -32,6 +33,9 @@ async def down(session, json_data):
     cleaned_json_data = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', json_data)
 
     data = json.loads(cleaned_json_data)
+    while not data['data']:
+        print("Challenge not ready yet")
+        time.sleep(1)
     async with aiohttp.ClientSession() as session:
         for challenge in data['data']:
             files = challenge['files']
