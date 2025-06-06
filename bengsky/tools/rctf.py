@@ -1,13 +1,10 @@
 import aiohttp
 import asyncio
-import urllib.parse
 from urllib.parse import urlparse, parse_qs
 import json
 import re
 import os
 import time
-import requests
-from bs4 import BeautifulSoup
 
 
 class Session:
@@ -35,7 +32,7 @@ async def down(session, json_data):
     data = json.loads(cleaned_json_data)
     while not data['data']:
         print("Challenge not ready yet")
-        time.sleep(1)
+        time.sleep(3)
     async with aiohttp.ClientSession() as session:
         for challenge in data['data']:
             files = challenge['files']
@@ -51,22 +48,9 @@ async def down(session, json_data):
                     f.write(file_data)
             print(f"Downloaded {challenge['name']} to {directory}")
 
-
-def create_CTF_folder(url):
-    response = requests.get(url)
-    html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
-    title = soup.head.title.string
-    folder_name = re.sub(r'\W+', '_', title)
-    if os.path.exists(folder_name) == False:
-        os.mkdir(folder_name)
-    os.chdir(folder_name)
-    print(f'[*] Create {folder_name} folder done')
-
-
 async def start(url, token):
     session = await login(url, token)
-    headers = {"User-Agent": "Eruditus",
+    headers = {"User-Agent": "Bengsky",
                "Authorization": "Bearer " + session.token}
 
     async with aiohttp.ClientSession(headers=headers) as session:
@@ -75,9 +59,6 @@ async def start(url, token):
             json_str = json.dumps(response_data, indent=4)
             await down(session, json.dumps(response_data))
 
-
-
 def main(url):
     url, token = url.split("login?token=")
-    create_CTF_folder(url)
     asyncio.run(start(url, token))
