@@ -60,7 +60,7 @@ def create_CTF_folder(url):
     print(f'[*] Create {folder_name} folder done')
 
 
-async def main(url, token):
+async def start(url, token):
     session = await login(url, token)
     headers = {"User-Agent": "Eruditus",
                "Authorization": "Bearer " + session.token}
@@ -76,4 +76,4 @@ async def main(url, token):
 def main(url):
     url, token = url.split("login?token=")
     create_CTF_folder(url)
-    asyncio.run(main(url, token))
+    asyncio.run(start(url, token))
