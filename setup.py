@@ -20,7 +20,10 @@ setup(
     install_requires=[
         "requests",
         "aiohttp",
-        "bs4"
+        "bs4",
+        "halo",
+        "cloudscraper",
+        "cython"
         # Add other dependencies here
     ],
     python_requires='>=3.10',
