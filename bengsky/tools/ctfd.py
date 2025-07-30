@@ -439,7 +439,7 @@ class Helper(object):
             f.write(chunk)
 def main(args):
   ctf  = CTFdScrape(args)
-  
+  print(args)
   if args.data or args.url:
     if args.user and args.passwd:
       ctf.authenticate()
