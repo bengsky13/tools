@@ -5,18 +5,18 @@ from .tools import rctf, ctfd
 def main():
     if sys.argv[1] == 'ctfd':
         url = sys.argv[2]
-        password = os.getenv('CTFD_USER')
-        username = os.getenv('CTFD_PASSWORD')
+        passwd = os.getenv('CTFD_USER')
+        user = os.getenv('CTFD_PASSWORD')
         if url == '':
             print("PLEASE SET CTFD URL bengsky ctfd <url>")
             return
-        if username == '':
+        if user == '':
             print("PLEASE SET CTFD_USER TO YOUR ENV")
             return
-        if password == '':
-            print("PLEASE SET CTFD_PASS TO YOUR ENV")
+        if passwd == '':
+            print("PLEASE SET CTFD_PASSWORD TO YOUR ENV")
             return
-        ctfd.main(url, username, password)
+        ctfd.main({url:url, user:user, passwd:passwd})
 
         return
     elif sys.argv[1] == 'rctf':
