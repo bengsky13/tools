@@ -437,15 +437,11 @@ class Helper(object):
         for chunk in response.iter_content(512*1024):
           if chunk:
             f.write(chunk)
-def main(args):
-  ctf  = CTFdScrape(args)
-  print(args)
-  if args.data or args.url:
-    if args.user and args.passwd:
+def main(url, user, password):
+  ctf  = CTFdScrape()
+  if url:
+    if user and password:
       ctf.authenticate()
       ctf.getChallenges()
-    else:
-      ctf.parseConfig(args.data)
-      ctf.nofile = True
     ctf.createArchive()
     ctf.review()
