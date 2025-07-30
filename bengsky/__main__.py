@@ -23,7 +23,6 @@ def main():
         args.url = sys.argv[2]
         args.user = os.getenv('CTFD_USER')
         args.passwd = os.getenv('CTFD_PASSWORD')
-        print(args)
         ctf  = ctfd.CTFdScrape(args)
         if args.data or args.url:
             if args.user and args.passwd:
