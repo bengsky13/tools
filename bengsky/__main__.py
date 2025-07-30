@@ -16,7 +16,7 @@ def main():
         if passwd == '':
             print("PLEASE SET CTFD_PASSWORD TO YOUR ENV")
             return
-        ctfd.main({url:url, user:user, passwd:passwd})
+        ctfd.main(url, user, passwd)
 
         return
     elif sys.argv[1] == 'rctf':
