@@ -20,6 +20,7 @@ def main():
         ctf  = ctfd.CTFdScrape(args)
         args.user = os.getenv('CTFD_USER')
         args.passwd = os.getenv('CTFD_PASSWORD')
+        print(args)
         if args.data or args.url:
             if args.user and args.passwd:
                 ctf.authenticate()
