@@ -17,10 +17,9 @@ def main():
         parser.add_argument('--export', help='Export challenges directory as zip, default=False', action='store_true')
         
         args, unknown = parser.parse_known_args()
-        ctf  = ctfd.CTFdScrape(args)
         args.user = os.getenv('CTFD_USER')
         args.passwd = os.getenv('CTFD_PASSWORD')
-        print(args)
+        ctf  = ctfd.CTFdScrape(args)
         if args.data or args.url:
             if args.user and args.passwd:
                 ctf.authenticate()
