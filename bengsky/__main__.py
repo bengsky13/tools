@@ -5,6 +5,9 @@ from .tools import rctf, ctfd
 
 def main():
     if sys.argv[1] == 'ctfd':
+        if sys.argv[1] == '':
+            print("Usage: bengsky ctfd <url>")
+            return
         parser = ArgumentParser(description='Simple CTFd-based scraper for challenges gathering')
         parser.add_argument('--data', metavar='data', type=str, help='Populate from challs.json')
         parser.add_argument('--proxy', metavar='proxy', type=str, help='Request behind proxy server')
@@ -17,6 +20,7 @@ def main():
         parser.add_argument('--export', help='Export challenges directory as zip, default=False', action='store_true')
         
         args, unknown = parser.parse_known_args()
+        args.url = sys.argv[2]
         args.user = os.getenv('CTFD_USER')
         args.passwd = os.getenv('CTFD_PASSWORD')
         ctf  = ctfd.CTFdScrape(args)
