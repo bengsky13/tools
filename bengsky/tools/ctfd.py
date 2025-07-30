@@ -311,8 +311,9 @@ class CTFdScrape(object):
       
           sp.warn('There are no new challenges')
       except Exception as e:
+        time.sleep(5)
         sp.fail('No challenges found :(')
-        sys.exit()
+        self.getChallenges(self)
     return True
 
   def createArchive(self):
