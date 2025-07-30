@@ -308,13 +308,11 @@ class CTFdScrape(object):
         if self.chcount > 0:    
           sp.succeed('Found %s new challenges'%(self.chcount))
         else:
+      
           sp.warn('There are no new challenges')
-          time.sleep(5)
-          self.getChallenges(self)
       except Exception as e:
         sp.fail('No challenges found :(')
-        time.sleep(5)
-        self.getChallenges(self)
+        sys.exit()
     return True
 
   def createArchive(self):
@@ -437,11 +435,32 @@ class Helper(object):
         for chunk in response.iter_content(512*1024):
           if chunk:
             f.write(chunk)
-def main(url, user, password):
-  ctf  = CTFdScrape()
-  if url:
-    if user and password:
+def main():
+  parser = ArgumentParser(description='Simple CTFd-based scraper for challenges gathering')
+  parser.add_argument('user', nargs='?', metavar='user', type=str, help='Username/email')
+  parser.add_argument('passwd', nargs='?', metavar='passwd', type=str, help='Password')
+  parser.add_argument('url', nargs='?',  metavar='url', type=str, default='', help='CTFd platform url')
+  parser.add_argument('--data', metavar='data', type=str, help='Populate from challs.json')
+  parser.add_argument('--proxy', metavar='proxy', type=str, help='Request behind proxy server')
+  parser.add_argument('--path', metavar='path', type=str, help='Target directory, default: CTF', default='CTF')
+  parser.add_argument('--worker',  metavar='worker', type=int, help='Number of threads, default: 10', default=10)
+  parser.add_argument('--scheme',  metavar='scheme', type=str, help='URL scheme, default: https', default='https')
+  parser.add_argument('--enable-cloud', help='Permit file download from a cloud drive, default=False', action='store_true')
+  parser.add_argument('--override', help='Override existed chall file', action='store_true')
+  parser.add_argument('--no-download', help='Don\'t download chall file', action='store_true')
+  parser.add_argument('--export', help='Export challenges directory as zip, default=False', action='store_true')
+  
+  args = parser.parse_args()
+  ctf  = CTFdScrape(args)
+  
+  if args.data or args.url:
+    if args.user and args.passwd:
       ctf.authenticate()
       ctf.getChallenges()
+    else:
+      ctf.parseConfig(args.data)
+      ctf.nofile = True
     ctf.createArchive()
     ctf.review()
+  else:
+    parser.error('too few arguments')
