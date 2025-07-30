@@ -437,8 +437,6 @@ class Helper(object):
             f.write(chunk)
 def main():
   parser = ArgumentParser(description='Simple CTFd-based scraper for challenges gathering')
-  parser.add_argument('user', nargs='?', metavar='user', type=str, help='Username/email')
-  parser.add_argument('passwd', nargs='?', metavar='passwd', type=str, help='Password')
   parser.add_argument('url', nargs='?',  metavar='url', type=str, default='', help='CTFd platform url')
   parser.add_argument('--data', metavar='data', type=str, help='Populate from challs.json')
   parser.add_argument('--proxy', metavar='proxy', type=str, help='Request behind proxy server')
@@ -452,7 +450,8 @@ def main():
   
   args = parser.parse_args()
   ctf  = CTFdScrape(args)
-  
+  args.user = os.getenv('CTFD_USER')
+  args.passwd = os.getenv('CTFD_PASSWORD')
   if args.data or args.url:
     if args.user and args.passwd:
       ctf.authenticate()
