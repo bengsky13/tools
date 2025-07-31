@@ -318,7 +318,7 @@ class CTFdScrape(object):
 
   def createArchive(self):
     orig_path  = os.getcwd()
-    self.path  = os.path.join(orig_path, self.basepath, self.title)
+    self.path  = os.path.join(orig_path)
     self.entry = dict(url=self.url, title=self.title, data={})
     if not os.path.exists(self.path):
       os.makedirs(self.path)
