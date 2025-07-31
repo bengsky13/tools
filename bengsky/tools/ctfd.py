@@ -289,7 +289,7 @@ class CTFdScrape(object):
         sys.exit()
       sp.succeed(' Login Success')
     self.__manageVersion()
-    path = os.path.join('challs.json')
+    path = os.path.join(self.basepath, self.title, 'challs.json')
     if os.path.exists(path):
       self.config = path
     if self.config:

@@ -28,9 +28,6 @@ def main():
             if args.user and args.passwd:
                 ctf.authenticate()
                 ctf.getChallenges()
-            else:
-                ctf.parseConfig(args.data)
-                ctf.nofile = True
                 ctf.createArchive()
                 ctf.review()
         else:
