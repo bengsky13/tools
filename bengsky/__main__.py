@@ -1,7 +1,7 @@
 import sys
 import os
 from argparse import ArgumentParser
-from .tools import rctf, ctfd
+from .tools import rctf, ctfd, solve
 
 def main():
     if sys.argv[1] == 'ctfd':
@@ -39,6 +39,9 @@ def main():
             print("PLEASE SET RCTF_URL TO YOUR ENV")
             return
         rctf.main(url)
+    elif sys.argv[1] == "solve":
+        print(sys.argv[2])
+        solve.main(sys.argv[2])
 
 if __name__ == "__main__":
     main()
