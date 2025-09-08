@@ -66,7 +66,8 @@ io = start()
 
 io.interactive()
 """
-data['gopher'] = """import requests
+data['gopher'] = """from bengsky.tools.gopher import *
+import requests
 req = requests.Request(
     method='POST',
     url='http://example.com/login',
