@@ -40,7 +40,6 @@ def main():
             return
         rctf.main(url)
     elif sys.argv[1] == "solve":
-        print(sys.argv[2])
         solve.main(sys.argv[2])
 
 if __name__ == "__main__":

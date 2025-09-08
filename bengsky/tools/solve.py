@@ -1,4 +1,4 @@
-data = []
+data = {}
 data['req'] = """import requests
 URL = "HOST"
 data = {
@@ -66,7 +66,6 @@ io = start()
 
 io.interactive()
 """
-print(data)
 data['gopher'] = """import requests
 req = requests.Request(
     method='POST',
