@@ -230,7 +230,6 @@ class CTFdScrape(object):
     while not q.empty():
       vals = self.chals[q.get()]
       ns   = Namespace(**vals)
-      print(vals, flush=True)
       path = os.path.join(self.path, ns.category, ns.name)
       if not os.path.exists(path):
         os.makedirs(path)
@@ -239,14 +238,14 @@ class CTFdScrape(object):
         desc  = ns.description.encode('utf-8').strip()
         name  = ns.name.encode('utf-8').strip()
         cat   = ns.category.encode('utf-8').strip()
-        conn = ns.connection_info.encode('utf-8').strip()
+        # conn = ns.connection_info.encode('utf-8').strip()
         solve = str(ns.solves).encode('utf-8').strip()
         hint  = '\n* '.join(ns.hints).encode('utf-8')
         cont  = '# %s [%s pts]\n\n' % (name, ns.points)
         cont += '**Category:** %s\n' % (cat)
         cont += '**Solves:** %s\n\n' % (solve)
         cont += '## Description\n>%s\n\n' % (desc)
-        cont += '## Connection Info\n>%s\n\n' % (conn)
+        # cont += '## Connection Info\n>%s\n\n' % (conn)
         cont += '**Hint**\n* %s\n\n' % (hint)
         cont += '## Solution\n\n'
         cont += '### Flag\n\n'
