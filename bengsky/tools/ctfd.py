@@ -161,7 +161,7 @@ class CTFdScrape(object):
 
   def __parseData(self, data):
     if data:
-      print(data, flush=True)
+      print(data.get('connection_info','-'))
       entry = {
         'id'          : data['id'],
         'name'        : self.escape.sub('', data['name']),
@@ -238,14 +238,14 @@ class CTFdScrape(object):
         desc  = ns.description.encode('utf-8').strip()
         name  = ns.name.encode('utf-8').strip()
         cat   = ns.category.encode('utf-8').strip()
-        # conn = ns.connection_info.encode('utf-8').strip()
+        conn = ns.connection_info
         solve = str(ns.solves).encode('utf-8').strip()
         hint  = '\n* '.join(ns.hints).encode('utf-8')
         cont  = '# %s [%s pts]\n\n' % (name, ns.points)
         cont += '**Category:** %s\n' % (cat)
         cont += '**Solves:** %s\n\n' % (solve)
         cont += '## Description\n>%s\n\n' % (desc)
-        # cont += '## Connection Info\n>%s\n\n' % (conn)
+        cont += '## Connection Info\n>%s\n\n' % (conn)
         cont += '**Hint**\n* %s\n\n' % (hint)
         cont += '## Solution\n\n'
         cont += '### Flag\n\n'
