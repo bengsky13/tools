@@ -161,6 +161,7 @@ class CTFdScrape(object):
 
   def __parseData(self, data):
     if data:
+      print(data, flush=True)
       entry = {
         'id'          : data['id'],
         'name'        : self.escape.sub('', data['name']),
