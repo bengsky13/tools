@@ -23,6 +23,7 @@ setup(
         "bs4",
         "halo",
         "cloudscraper",
+        "lxml",
         "cython"
         # Add other dependencies here
     ],
