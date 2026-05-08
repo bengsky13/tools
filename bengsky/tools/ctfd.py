@@ -230,7 +230,7 @@ class CTFdScrape(object):
     while not q.empty():
       vals = self.chals[q.get()]
       ns   = Namespace(**vals)
-      print(ns, flush=True)
+      print(vals, flush=True)
       path = os.path.join(self.path, ns.category, ns.name)
       if not os.path.exists(path):
         os.makedirs(path)
