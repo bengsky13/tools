@@ -32,6 +32,7 @@ class CTFdScrape(object):
     self.proxies   = args.proxy
     self.cloud     = args.enable_cloud
     self.config    = args.data
+    self.cloudflare = args.cloudflare
     self.archived  = args.export 
     self.starTime  = time.time()
     self.__setEnVar()
@@ -56,6 +57,11 @@ class CTFdScrape(object):
     self.ses     = session()
     self.helper  = Helper(self.ses)
     self.ses.headers.update({'User-Agent' : self.__userAgent})
+    # If cloudflare protection is enabled, append cookies to the session
+
+    if self.cloudflare:
+      self.ses.cookies.update({'cf_clearance': self.cloudflare})
+
     if self.proxies:
       proxy = {'http'  : 'http://%s'%(self.proxies),
                'https' : 'https://%s'%(self.proxies)}

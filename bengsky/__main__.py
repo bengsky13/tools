@@ -18,6 +18,7 @@ def main():
         parser.add_argument('--override', help='Override existed chall file', action='store_true')
         parser.add_argument('--no-download', help='Don\'t download chall file', action='store_true')
         parser.add_argument('--export', help='Export challenges directory as zip, default=False', action='store_true')
+        parser.add_argument('--cloudflare', help='Cloudflare clearance cookie', type=str, default=None)
         
         args, unknown = parser.parse_known_args()
         args.url = sys.argv[2]
