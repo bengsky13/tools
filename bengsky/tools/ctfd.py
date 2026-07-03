@@ -2,7 +2,7 @@
 from halo import Halo
 from cloudscraper import create_scraper
 from threading import Thread, Lock
-from requests import session
+from requests import Session
 from argparse import Namespace, ArgumentParser
 from bs4 import BeautifulSoup
 from shutil import make_archive
@@ -36,11 +36,6 @@ class CTFdScrape(object):
     self.archived  = args.export 
     self.starTime  = time.time()
     self.__setEnVar()
-     
-  def __bypassCloudflareProtection(self):
-    with Halo(text='Checking for DDOS Protection') as sp:
-        self.ses = requests.Session()
-        sp.succeed('DDOS Protection Found')
 
   def __setEnVar(self):
     # CTFd params
@@ -53,14 +48,12 @@ class CTFdScrape(object):
     self.chals   = {}
 
     # Persistent session
-    self.ses     = session()
+    self.ses     = Session()
     self.helper  = Helper(self.ses)
     self.ses.headers.update({'User-Agent' : self.__userAgent})
     # If cloudflare protection is enabled, append cookies to the session
-
     if self.cloudflare:
-      self.ses.cookies.update({'cf_clearance': self.cloudflare})
-
+      self.ses.headers.update({'Cookie': 'cf_clearance='+self.cloudflare})
     if self.proxies:
       proxy = {'http'  : 'http://%s'%(self.proxies),
                'https' : 'https://%s'%(self.proxies)}
@@ -291,7 +284,6 @@ class CTFdScrape(object):
     del que
 
   def authenticate(self):
-    self.__bypassCloudflareProtection()
     with Halo(text='\n Authenticating') as sp:
       if not self.__login():
         sp.fail(' Login Failed :(')
