@@ -18,7 +18,7 @@ except ImportError:
  import Queue as queue
 
 class CTFdScrape(object):
-  __userAgent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+  __userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15'
   __urlParse  = re.compile('(?P<scheme>http.*://)?(?P<host>[^:/ ]+):?(?P<port>[0-9]*)')
 
   def __init__(self, args):
