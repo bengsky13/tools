@@ -88,7 +88,7 @@ class CTFdScrape(object):
   def __login(self):
     try:
       resp  = self.ses.get(self.lg_url)
-      print(resp.text)
+      print(resp.text, flush=True)
       soup  = BeautifulSoup(resp.text,'lxml')
       nonce = soup.find('input', {'name':'nonce'}).get('value')
       self.auth['nonce'] = nonce
