@@ -39,8 +39,7 @@ class CTFdScrape(object):
      
   def __bypassCloudflareProtection(self):
     with Halo(text='Checking for DDOS Protection') as sp:
-      if self.ses.get(self.url, timeout=10).status_code == 503:
-        self.ses = create_scraper()
+        self.ses = requests.Session()
         sp.succeed('DDOS Protection Found')
 
   def __setEnVar(self):
@@ -88,7 +87,6 @@ class CTFdScrape(object):
   def __login(self):
     try:
       resp  = self.ses.get(self.lg_url)
-      print(resp.text, flush=True)
       soup  = BeautifulSoup(resp.text,'lxml')
       nonce = soup.find('input', {'name':'nonce'}).get('value')
       self.auth['nonce'] = nonce
